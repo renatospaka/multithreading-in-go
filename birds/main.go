@@ -14,7 +14,7 @@ const (
 
 var (
 	green = color.RGBA{10, 255, 50, 255}
-	boids [boidCount]*Boid
+	boids   [boidCount]*Boid
 )
 
 type Game struct{}
