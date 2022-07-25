@@ -1,12 +1,20 @@
 package main
 
-import "time"
+import (
+	"sync"
+	"time"
+)
 
-var money = 100
+var (
+	money = 100
+	lock  = sync.Mutex{}
+)
 
-func stingy() {
+func Stingy() {
 	for i := 1; i <= 1000; i++ {
+		lock.Lock()
 		money += 10
+		lock.Unlock()
 		time.Sleep((1 * time.Millisecond))
 	}
 
@@ -15,7 +23,9 @@ func stingy() {
 
 func Spendy() {
 	for i := 1; i <= 1000; i++ {
+		lock.Lock()
 		money -= 10
+		lock.Unlock()
 		time.Sleep((1 * time.Millisecond))
 	}
 
@@ -24,7 +34,7 @@ func Spendy() {
 
 func main() {
 	go Spendy()
-	go stingy()
-	time.Sleep(800 * time.Millisecond)
+	go Stingy()
+	time.Sleep(1500 * time.Millisecond)
 	println(money)
 }
