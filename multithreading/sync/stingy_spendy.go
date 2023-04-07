@@ -35,6 +35,6 @@ func Spendy() {
 func main() {
 	go Spendy()
 	go Stingy()
-	time.Sleep(1500 * time.Millisecond)
+	time.Sleep(3000 * time.Millisecond)
 	println(money)
 }
