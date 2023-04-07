@@ -4,7 +4,7 @@
 
 It covers:
 ### 1) go routines </br>
-  <p>To install **ebiten**, please follow the instructions <a href="https://ebiten.org/documents/install.html?os=linux#Go">here</a> <a href="https://ebiten.org/documents/install.html?os=linux">and here</a> </p>
+  <p>To install **ebiten**, please follow the instructions <a href="https://ebiten.org/documents/install.html?os=linux#Go">here</a> and <a href="https://ebiten.org/documents/install.html?os=linux">here</a> </p>
 </br>
 
 ### 2) thread synchronization </br>
