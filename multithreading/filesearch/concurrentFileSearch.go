@@ -6,10 +6,13 @@ import (
 	"log"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
 var (
-	matches []string
+	matches   []string
+	waitGrout = sync.WaitGroup{}
+	lock      = sync.Mutex{}
 )
 
 func fileSearch(root string, filename string) {
@@ -17,16 +20,23 @@ func fileSearch(root string, filename string) {
 	files, _ := ioutil.ReadDir(root)
 	for _, file := range files {
 		if strings.Contains(file.Name(), filename) {
+			lock.Lock()
 			matches = append(matches, filepath.Join(root, file.Name()))
+			lock.Unlock()
 		}
 		if file.IsDir() {
-			fileSearch(filepath.Join(root, file.Name()), filename)
+			waitGrout.Add(1)
+			go fileSearch(filepath.Join(root, file.Name()), filename)
 		}
-	} 
+	}
+	waitGrout.Done()
 }
 
 func main() {
-	fileSearch("/home/renatospaka/dev/cursos", "README.md")
+	waitGrout.Add(1)
+	go fileSearch("/home/renatospaka/dev/cursos", "README.md")
+	waitGrout.Wait()
+
 	for _, file := range matches {
 		fmt.Println("Matched:", file)
 	}
