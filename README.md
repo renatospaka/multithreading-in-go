@@ -8,3 +8,4 @@ It covers:
 </br>
 
 ### 2) thread synchronization </br>
+### 3) using wait groups & channels </br>
